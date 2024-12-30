@@ -10,7 +10,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-sql:5432/banking_application
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      SPRING_APPLICATION_NAME: my-spring-app # Optional: For logging and monitoring
+      SPRING_APPLICATION_NAME: spring-app
       SERVER_PORT: 8090
       JWT_SECRET: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
       JWT_EXPIRATION: 3600000
@@ -19,7 +19,7 @@ services:
       - "8090:8090"
     depends_on:
       - postgres
-      - kafka # Ensure the app waits for Kafka to be ready
+      - kafka
     networks:
       - app-network
     restart: unless-stopped
@@ -45,11 +45,14 @@ services:
       - "9093:9093"
     environment:
       - KRAFT_CONTAINER_HOST_NAME=kafka
-      - KAFKA_LISTENER=INTERNAL://0.0.0.0:9093 # Kafka binds to all interfaces inside container
-      - KAFKA_ADVERTISED_LISTENER=INTERNAL://kafka:9093 # Advertised listener name for clients
-      - KAFKA_LISTENER_SECURITY_PROTOCOL=PLAINTEXT # Use plaintext communication
+      - KRAFT_CREATE_TOPICS=topic-customer-register,topic-otp,topic-withdraw, topic-payment, topic-invest
+      - KRAFT_PARTITIONS_PER_TOPIC=3
+      - KRAFT_AUTO_CREATE_TOPICS=true
+      - KAFKA_LISTENER=INTERNAL://0.0.0.0:9093
+      - KAFKA_ADVERTISED_LISTENER=INTERNAL://kafka:9093
+      - KAFKA_LISTENER_SECURITY_PROTOCOL=PLAINTEXT
     volumes:
-      - kafka-data:/var/lib/kafka/data # Persist Kafka data
+      - kafka-data:/var/lib/kafka/data
     networks:
       - app-network
 
@@ -62,4 +65,4 @@ volumes:
   postgres:
     driver: local
   kafka-data:
-    driver: local # Kafka persistent storage
+    driver: local
