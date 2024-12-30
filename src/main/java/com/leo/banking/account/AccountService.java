@@ -1,12 +1,11 @@
 package com.leo.banking.account;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +16,7 @@ public class AccountService {
     // 1. Get Account Balance
     public BigDecimal getAccountBalance(Long accountId) {
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new AccountNotFoundException("Account not found with ID: " + accountId));
+                .orElseThrow(() -> new AccountNotFoundException(""+accountId ));
         return account.getBalance();
     }
 
