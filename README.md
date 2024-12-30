@@ -30,12 +30,12 @@ The **Application Architecture Diagram** shows the high-level structure of the b
 
 The **Customer Registration Data Flow Diagram** illustrates the step-by-step flow of data during the customer registration process. The process typically follows these stages:
 
-1. **Customer Input**: The user provides their registration details (e.g., name, email, password, etc.) via the frontend interface.
-2. **API Gateway**: The frontend sends a request to the API Gateway, which forwards the request to the `User Service`.
-3. **Validation**: The `User Service` validates the input data (e.g., checks if the email is already in use).
+1. **A System user/staff Input**: The user provides customer registration details (KYC) (e.g., name, email, beneficiary etc.) via the frontend interface.
+2. **API Gateway**: The frontend sends a request to the API Gateway (Nginx), which forwards the request to the `Customer Service`.
+3. **Validation**: The `Customer Service` validates the input data (e.g., checks if the email is already in use).
 4. **OTP Generation**: If the input data is valid, the `OTP Service` generates a one-time password (OTP) and sends it to the user.
-5. **OTP Validation**: The user enters the OTP, which is validated by the `OTP Service`. If valid, the registration proceeds.
-6. **Account Creation**: The `User Service` creates a user record in the database.
+5. **Notification Service** : Customer Registration Consumer - consumes message
+6. **Account Creation**: The `Customer Service` creates a user record in the database.
 7. **Confirmation**: The user receives a confirmation of successful registration.
 
 The diagram is located in the [assets/customer_registration_dataflow.png](assets/customer_registration_dataflow.png) file.
@@ -44,12 +44,34 @@ The diagram is located in the [assets/customer_registration_dataflow.png](assets
 
 ## 3. Bill Payment Sequential Diagram
 
-The **Bill Payment Sequential Diagram** shows the interaction between various components of the system during the bill payment process. Here's a breakdown of the process:
+The **Bill Payment Sequential Diagram** shows the interaction between various components of the system during the bill payment process, considering different payment types like electricity, water, airtime, and other merchant payments.
 
-1. **User Initiates Payment**: The user enters bill payment details through the frontend interface (e.g., biller, amount, payment method).
-2. **API Gateway**: The request is sent to the API Gateway, which forwards it to the `Bill Payment Service`.
-3. **Payment Validation**: The `Bill Payment Service` validates the payment details (e.g., account balance, biller information).
-4. **Payment Processing**: If valid, the `Bill Payment Service` processes the payment request by debiting the user's account.
-5. **Confirmation**: After successful payment, a confirmation is sent to the user through the frontend interface.
-6. **Transaction Record**: A record of the payment is stored in the database for future reference.
+### Process Flow:
+
+1. **User Initiates Payment**:
+    - The user selects the bill type (electricity, water, airtime, etc.) and enters payment details (amount, account number, payment method).
+
+2. **API Gateway**:
+    - The frontend sends the payment request to the **API Gateway**, which routes it to the relevant backend service (e.g., Bill Payment Service).
+
+3. **Bill Payment Service Validation**:
+    - The **Bill Payment Service** validates payment details (biller info, balance, payment method).
+    - For merchant payments (electricity, water, airtime), it verifies the payment details with the respective merchant.
+
+4. **Payment Processing**:
+    - The **Bill Payment Service** debits the user's account if details are valid.
+    - For merchant payments, the service processes the payment through the merchant’s system.
+
+5. **Payment Confirmation**:
+    - After successful payment, the **Bill Payment Service** sends a confirmation to the user.
+    - Merchant payments include a confirmation from the merchant system (e.g., electricity or airtime provider).
+
+6. **Transaction Record**:
+    - The payment is recorded in the database, including transaction details and merchant info (if applicable).
+    - A transaction record is created and updates the user's account history.
+
+### Diagram:
+![Bill Payment Sequential Diagram](assets/bill_payment_sequential.png)
+
+
 
