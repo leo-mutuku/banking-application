@@ -1,0 +1,51 @@
+# application.yml
+
+spring:
+  datasource:
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+# Default (local) profile configuration
+spring.profiles.active: local
+
+# Local profile configuration
+---
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/banking_application
+
+  profiles: local
+
+# Docker profile configuration
+---
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres-sql:5432/banking_application
+
+  profiles: docker
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 3600000  # 1h
+      refresh-token:
+        expiration: 86400000 # 1 day
+
+server:
+  port: 8090
+#
+#kafka:
+#  bootstrap-servers: kafka:9092  # Point to the Kafka service in Docker (use 'kafka' as the hostname in the Docker network)
+#  consumer:
+#    group-id: my-consumer-group
+#    auto-offset-reset: earliest
+#    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    enable-auto-commit: true
+#  producer:
+#    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    retries: 3
+#    acks: all
