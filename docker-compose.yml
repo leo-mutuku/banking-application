@@ -45,7 +45,7 @@ services:
       - "9093:9093"
     environment:
       - KRAFT_CONTAINER_HOST_NAME=kafka
-      - KRAFT_CREATE_TOPICS=topic-customer-register,topic-otp,topic-withdraw, topic-payment, topic-invest
+      - KRAFT_CREATE_TOPICS=notification-topic
       - KRAFT_PARTITIONS_PER_TOPIC=3
       - KRAFT_AUTO_CREATE_TOPICS=true
       - KAFKA_LISTENER=INTERNAL://0.0.0.0:9093
