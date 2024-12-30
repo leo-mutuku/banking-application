@@ -20,7 +20,9 @@ The **Application Architecture Diagram** shows the high-level structure of the b
 - **Database**: Persistent storage for user data, account details, transaction records, etc.
 - **Third-Party Integration**: Includes integrations with external systems such as payment gateways, email providers, and SMS services.
 
-The diagram is located in the [assets/banking application architecture diagram.drawio.png](assets/banking%20application%20architecture%20diagram.drawio.png) file.
+
+### Diagram:
+![Application Architecture Diagram](assets/banking%20application%20architecture%20diagram.drawio.png)
 
 ---
 
@@ -51,4 +53,3 @@ The **Bill Payment Sequential Diagram** shows the interaction between various co
 5. **Confirmation**: After successful payment, a confirmation is sent to the user through the frontend interface.
 6. **Transaction Record**: A record of the payment is stored in the database for future reference.
 
-The diagram is located in the [assets/bill_payment_sequential.png](assets/bill_payment_
