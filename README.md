@@ -38,7 +38,9 @@ The **Customer Registration Data Flow Diagram** illustrates the step-by-step flo
 6. **Account Creation**: The `Customer Service` creates a user record in the database.
 7. **Confirmation**: The user receives a confirmation of successful registration.
 
-The diagram is located in the [assets/customer_registration_dataflow.png](assets/customer_registration_dataflow.png) file.
+### Diagram:
+![Customer Registration Diagram](assets/customer_registration_dataflow.png)
+
 
 ---
 
@@ -70,8 +72,10 @@ The **Bill Payment Sequential Diagram** shows the interaction between various co
     - The payment is recorded in the database, including transaction details and merchant info (if applicable).
     - A transaction record is created and updates the user's account history.
 
+
 ### Diagram:
-![Bill Payment Sequential Diagram](assets/bill_payment_sequential.png)
+![Bill Payment Sequence Diagram](assets/Bill%20payment%20diagram.drawio.png)
+
 
 
 
